@@ -30,3 +30,14 @@ def test_swap_face() -> None:
         assert response.status_code == 200
         assert response.content
 
+
+def test_preview_face() -> None:
+        with open(get_test_example_file('source.jpg'), 'rb') as source, open(get_test_example_file('target-240p.mp4'), 'rb') as target:
+                files = {
+                        'source': ('source.jpg', source, 'image/jpeg'),
+                        'target': ('target-240p.mp4', target, 'video/mp4')
+                }
+                response = client.post('/preview', params = { 'frame': 0 }, files = files)
+        assert response.status_code == 200
+        assert response.content
+
